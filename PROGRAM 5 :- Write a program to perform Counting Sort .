@@ -1,0 +1,64 @@
+#include <stdio.h> 
+#include <conio.h> 
+#include <stdlib.h> 
+ 
+#define N 10 
+#define K 6 
+ 
+void count(int a[],int n,int k) 
+{ 
+int i,j; 
+int c[K+1],b[N]; 
+ 
+for(i=0;i<=k;i++) 
+c[i]=0; 
+ 
+for(j=1;j<n;j++) 
+c[a[j]]++; 
+ 
+for(i=0;i<=k;i++) 
+printf("c[%d]:%d\n",i,c[i]); 
+ 
+getche(); 
+printf("\n\n"); 
+ 
+for(i=1;i<=k;i++) 
+{ 
+c[i]=c[i]+c[i-1]; 
+printf("c[%d]:%d\n",i,c[i]); 
+} 
+getche(); 
+ 
+printf("B:array :\n\n"); 
+for(j=n-1;j>=1;j--) 
+{ 
+b[c[a[j]]]=a[j]; 
+printf("a[%d]=%d  :: b[%d]=%d\n",j,a[j],c[a[j]],b[c[a[j]]]); 
+c[a[j]]--; 
+} 
+printf("\n\nThe sorted List :\n"); 
+ 
+for(i=1;i<n;i++) 
+{ 
+printf("%d\n",b[i]); 
+} 
+ 
+} 
+ 
+ 
+void main() 
+{ 
+int i; 
+int a[N]; 
+ 
+clrscr(); 
+printf("\nUnsorted list is :\n"); 
+for(i=1;i<N;i++) 
+{ 
+a[i]=rand()%K; 
+printf("%d\n\n",a[i]); 
+} 
+getche(); 
+count(a,N,K); 
+getche(); 
+} 
