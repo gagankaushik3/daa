@@ -1,0 +1,227 @@
+#include<conio.h> 
+
+#include<stdio.h> 
+
+void quick_sort(int [],int,int); 
+
+int partition(int [],int,int); 
+
+void mergesort(int a[] ,int i , int j); 
+
+void merge(int a[],int i1, int j1, int i2, int j2); 
+
+void main() 
+
+{ 
+
+int a[30],n,i,op; 
+
+clrscr(); 
+
+do 
+
+   { 
+
+     printf("\n1)Quick Sort\n2)Merge Sort \n3)Quit"); 
+
+     printf("\nEnter your choice : "); 
+
+     scanf("%d",&op); 
+
+     switch(op) 
+
+      { 
+
+case 1: printf("\nEnter no of elements :"); 
+
+scanf("%d",&n); 
+
+printf("\nEnter array elements :"); 
+
+for(i=0;i<n;i++) 
+
+scanf("%d",&a[i]); 
+
+quick_sort(a,0,n-1); 
+
+printf("\nSorted array is :"); 
+
+for(i=0;i<n;i++) 
+
+printf("%d  ",a[i]); 
+
+break; 
+
+ 
+
+case 2: printf("\nEnter no of elements :"); 
+
+scanf("%d",&n); 
+
+printf("\nEnter array elements :"); 
+
+for(i=0;i<n;i++) 
+
+scanf("%d",&a[i]); 
+
+mergesort(a,0,n-1); 
+
+printf("\nSorted array is :"); 
+
+for(i=0;i<n;i++) 
+
+printf("%d   ",a[i]); 
+
+break; 
+
+ 
+
+   } 
+
+     }while(op!=3); 
+
+} 
+
+void quick_sort(int a[],int l,int u){ 
+
+int j; 
+
+if(l<u) 
+
+{ 
+
+j=partition(a,l,u); 
+
+quick_sort(a,l,j-1); 
+
+quick_sort(a,j+1,u); 
+
+} 
+
+} 
+
+int partition(int a[],int l,int u) 
+
+{ 
+
+    int v,i,j,temp; 
+
+    v=a[l]; 
+
+    i=l; 
+
+    j=u+1; 
+
+    do 
+
+    { 
+
+do 
+
+{	i++; 
+
+}while(a[i]<v && i<=u); 
+
+ 
+
+do 
+
+{	j--; 
+
+}while(a[j]>v); 
+
+ 
+
+if(i<j) 
+
+{ 
+
+temp=a[i]; 
+
+a[i]=a[j]; 
+
+a[j]=temp; 
+
+} 
+
+    }while(i<j); 
+
+    a[l]=a[j]; 
+
+    a[j]=v; 
+
+    return(j); 
+
+} 
+
+ 
+
+ void mergesort(int a[] ,int i , int j) 
+
+   { 
+
+int mid; 
+
+if(i<j) 
+
+ { mid=(i+j)/2; 
+
+   mergesort(a,i,mid);    //left recursion 
+
+   mergesort(a,mid+1,j);  //right recursion 
+
+   merge(a,i,mid,mid+1,j); //meging of two sorted sub-arrays 
+
+ } 
+
+    } 
+
+ 
+
+ 
+
+void merge(int a[],int i1, int j1, int i2, int j2) 
+
+  { 
+
+     int temp[50];//array used for merging 
+
+     int i,j,k; 
+
+     i=i1;//beginning of the first list 
+
+     j=i2;//beginning of the second list 
+
+     k=0; 
+
+     while(i<=j1 && j <=j2) //while elemnts in both lists 
+
+      { 
+
+if(a[i]<a[j]) 
+
+   temp[k++]=a[i++]; 
+
+else 
+
+   temp[k++]=a[j++]; 
+
+      } 
+
+    while(i<=j1)//copy remaining elements of the first list 
+
+       temp[k++]=a[i++]; 
+
+    while(j<=j2)//copy remaining elements of the second list 
+
+       temp[k++]=a[j++]; 
+
+  //Transfer elemnts from temp[] back to a[] 
+
+    for(i=i1,j=0;i<=j2;i++,j++) 
+
+       a[i]=temp[j]; 
+
+  } 
+
+ 
